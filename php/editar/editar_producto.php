@@ -35,21 +35,16 @@
   }else{
     $desc="";
   }
-
-  if(isset($_POST['actividad'])) { 
-    $actividad = $_POST["actividad"];
-  }
   
   $exito=1;
 
 
-  $sql = "UPDATE `producto` SET `nombre_Producto`='$nombre',`stock_Producto`='$stock',`stock_Minimo_Critico`='$stock_c',`stock_Alerta`='$stock_a',`tipo_producto`='$tipo',`descripcion_Producto`='$desc', `activo`='$actividad' WHERE `id_Producto`='$id'";
+  $sql = "UPDATE `producto` SET `nombre_Producto`='$nombre',`stock_Producto`='$stock',`stock_Minimo_Critico`='$stock_c',`stock_Alerta`='$stock_a',`tipo_producto`='$tipo',`descripcion_Producto`='$desc' WHERE `id_Producto`='$id'";
   
   if(mysqli_query($con,$sql)):
     echo $exito;
   else:
-    $exito = 0;
-    echo $exito;
+    echo mysqli_error($con);
   endif;
 
   mysqli_close($con);

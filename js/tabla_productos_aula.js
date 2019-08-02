@@ -67,16 +67,14 @@ $(document).ready(function(){
       var locI = "b_"+$('#idBalda_mod').val();
       var locF = "a_"+$('#idAula_mod').val();
 
-      var valido;
+      var valido = validacionMod(stock_aula, stock_prod,cantidad_actual);
+
       if(stock_aula<cantidad_actual){
         modificar ="&prod='si'";
-        valido = validacion(stock_aula, stock_prod);
       } else if(stock_aula==cantidad_actual){
         valido=0;
       } else{
         modificar="&balda='si'";
-        stock_n=stock_aula-cantidad_actual;
-        valido = validacion(stock_n, stock_prod);
       }
 
       if(valido == 1){
@@ -143,11 +141,17 @@ $(document).ready(function(){
             }
           }
         });
-      }  else {
+      }  else if(valido == 4){
         $.alert({
           title: '¡Error!',
           icon: 'fa fa-warning',
-          content: 'Verifique la información dada.',
+          content: 'El valor introducido en Stock no es correcto.',
+        });
+      } else if(valido == 0){
+        $.alert({
+          title: '¡Error!',
+          icon: 'fa fa-warning',
+          content: 'No hay existencias suficientes que traspasar a esta sala.',
         });
       }
     });
@@ -210,6 +214,33 @@ function validacion(stock_aula, stock_prod){
       valido = 3;
     }
     return valido;
+}
+
+function validacionMod(stock_sala, stock_prod, actual){
+    //partiendo de que stock_sala es lo que quiero
+    // stock_prod es lo que me queda
+    // actual es lo que tengo
+  var valido = 0;
+  var comp = stock_prod+actual;
+
+  if(stock_sala > comp){
+    valido = 0;
+  }
+  if(stock_sala == comp){
+    valido = 2;
+  }
+
+  if(stock_sala < stock_prod && stock_sala > actual){
+    valido = 1;
+  }   
+  if(stock_sala==0 || stock_sala < actual){
+    valido = 3;
+  }
+  if(isNaN(stock_sala)==true || actual == stock_sala){
+    valido=4;
+  }
+
+  return valido;
 }
 
 function buscarProducto(consulta) {

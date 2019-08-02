@@ -16,7 +16,7 @@ $(document).ready(function(){
         $.alert({
           icon: "fa fa-warning",
           title: '¡No hay existencias!',
-          content: 'No hay existencias suficientes que traspasar a esta aula.',
+          content: 'No hay existencias suficientes que traspasar a esta balda.',
         });
       } else if( valido == 1 ){
         $.confirm({
@@ -84,7 +84,7 @@ $(document).ready(function(){
         });
       } else if( valido == 2){
         $.confirm({
-          title: 'Nuevo producto',
+          title: 'Modificar producto',
           content: '¿Estás seguro de que quieres modificar el producto?',
           buttons: {
               cancelar: function () {}, 

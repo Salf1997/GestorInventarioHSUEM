@@ -48,7 +48,7 @@ session_start();
            </div>
          </nav>
        </header>';
-  elseif($_SESSION['rol']=='TÃ©cnico'):
+  elseif($_SESSION['rol']=='Técnico'):
     $navbar='<p id="idUsuario_1" valor="<?php echo $_SESSION["idUsuario"];?>"></p>
     <!-- navbar-->
     <header class="header">
