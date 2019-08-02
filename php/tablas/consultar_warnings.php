@@ -54,30 +54,34 @@
                         echo '<strong><i class="fa fa-warning"></i> Solo se muestra un máximo de 20 alertas. Para consultar las alertas, hágalo en la sección de Productos.</strong>';
                         echo '</div></div></div>';
                     endif;
-                        while($row = mysqli_fetch_assoc($result)){	
-                            $stock=$row['stock_Producto'];
-                            $stockMin=$row['stock_Minimo_Critico'];
-                            $stockA=$row['stock_Alerta'];
-                            
-                            $res = compara($stock,$stockA,$stockMin);
-                            $contador = contador($contador,$stock,$stockA,$stockMin);
-                            
-                            if($res==1):
-                                if(isset($_POST['warnings']) && $mostrar<19):
-                                    echo '<div class="d-flex align-items-center"><div class="details d-flex">';
-                                    echo '<div class="text"><span class="info">El producto "'.$row["nombre_Producto"].'" con ID('.$row['id_Producto'].') solo tiene '.$row["stock_Producto"].' unidades en stock.</span></div>';
-                                    echo '</div></div>';
-                                    $mostrar=$mostrar+1;
-                                endif;
+                    while($row = mysqli_fetch_assoc($result)){	
+                        $stock=$row['stock_Producto'];
+                        $stockMin=$row['stock_Minimo_Critico'];
+                        $stockA=$row['stock_Alerta'];
+                        
+                        $res = compara($stock,$stockA,$stockMin);
+                        $contador = contador($contador,$stock,$stockA,$stockMin);
+                        
+                        if($res==1):
+                            if(isset($_POST['warnings']) && $mostrar<19):
+                                echo '<div class="d-flex align-items-center"><div class="details d-flex">';
+                                echo '<div class="text"><span class="info">El producto "'.$row["nombre_Producto"].'" con ID('.$row['id_Producto'].') solo tiene '.$row["stock_Producto"].' unidades en stock.</span></div>';
+                                echo '</div></div>';
+                                $mostrar=$mostrar+1;
                             endif;
-                        }
-                        if(!isset($_POST['warnings'])):
-                            echo $contador;
                         endif;
+                    }
+                    if(!isset($_POST['warnings'])):
+                        echo $contador;
+                    endif;
                 else:
-                    echo '<div class="d-flex align-items-center"><div class="details d-flex">';
-                    echo "<div class='text'><span class='info'>No hay ninguna alerta.</span></div>";
-                    echo '</div></div>';
+                    if(isset($_POST['warnings'])):
+                        echo '<div class="d-flex align-items-center"><div class="details d-flex">';
+                        echo "<div class='text'><span class='info'>No hay productos en alerta.</span></div>";
+                        echo '</div></div>';
+                    else:
+                        echo 0;
+                    endif;
                 endif;
             else:
                 

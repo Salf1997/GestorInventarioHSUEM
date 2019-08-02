@@ -1,0 +1,6 @@
+Usuario: Administrador
+Password: Administrador
+
+Base de Datos HSUEM
+Para cambiar los datos de acceso a la Base de Datos en:
+php/db.php
